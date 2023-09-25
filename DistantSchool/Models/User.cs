@@ -11,7 +11,7 @@ public partial class User
 
     public string PasswordHash { get; set; } = null!;
 
-    public int UserType { get; set; }
+    public UserType UserType { get; set; }
 
     public virtual ICollection<Student> Students { get; set; } = new List<Student>();
 
