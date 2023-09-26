@@ -34,11 +34,6 @@ public partial class AppContext : DbContext
             entity.Property(e => e.FirstName).HasMaxLength(50);
             entity.Property(e => e.LastName).HasMaxLength(50);
             entity.Property(e => e.Patronymic).HasMaxLength(50);
-
-            entity.HasOne(d => d.User).WithMany(p => p.Students)
-                .HasForeignKey(d => d.UserID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Students_Users");
         });
 
         modelBuilder.Entity<Teacher>(entity =>
@@ -53,17 +48,24 @@ public partial class AppContext : DbContext
             entity.Property(e => e.Patronymic)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-
-            entity.HasOne(d => d.User).WithMany(p => p.Teachers)
-                .HasForeignKey(d => d.UserID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Teachers_Users");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
             entity.Property(e => e.PasswordHash).HasMaxLength(100);
             entity.Property(e => e.Username).HasMaxLength(50);
+            
+            entity.HasOne(u => u.Student)
+                .WithOne(s => s.User)
+                .HasForeignKey<Student>(s => s.UserID)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Students_Users");
+            
+            entity.HasOne(u => u.Teacher)
+                .WithOne(t => t.User)
+                .HasForeignKey<Teacher>(t => t.UserID)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Teachers_Users");
         });
 
         OnModelCreatingPartial(modelBuilder);

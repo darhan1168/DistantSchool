@@ -18,6 +18,9 @@ namespace DistantSchool.Models
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.11")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -60,7 +63,8 @@ namespace DistantSchool.Models
 
                     b.HasKey("StudentID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserID")
+                        .IsUnique();
 
                     b.ToTable("Students");
                 });
@@ -102,7 +106,8 @@ namespace DistantSchool.Models
 
                     b.HasKey("TeacherID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserID")
+                        .IsUnique();
 
                     b.ToTable("Teachers");
                 });
@@ -136,8 +141,8 @@ namespace DistantSchool.Models
             modelBuilder.Entity("DistantSchool.Models.Student", b =>
                 {
                     b.HasOne("DistantSchool.Models.User", "User")
-                        .WithMany("Students")
-                        .HasForeignKey("UserID")
+                        .WithOne("Student")
+                        .HasForeignKey("DistantSchool.Models.Student", "UserID")
                         .IsRequired()
                         .HasConstraintName("FK_Students_Users");
 
@@ -147,8 +152,8 @@ namespace DistantSchool.Models
             modelBuilder.Entity("DistantSchool.Models.Teacher", b =>
                 {
                     b.HasOne("DistantSchool.Models.User", "User")
-                        .WithMany("Teachers")
-                        .HasForeignKey("UserID")
+                        .WithOne("Teacher")
+                        .HasForeignKey("DistantSchool.Models.Teacher", "UserID")
                         .IsRequired()
                         .HasConstraintName("FK_Teachers_Users");
 
@@ -157,9 +162,9 @@ namespace DistantSchool.Models
 
             modelBuilder.Entity("DistantSchool.Models.User", b =>
                 {
-                    b.Navigation("Students");
+                    b.Navigation("Student");
 
-                    b.Navigation("Teachers");
+                    b.Navigation("Teacher");
                 });
 #pragma warning restore 612, 618
         }

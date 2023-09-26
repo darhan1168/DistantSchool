@@ -1,0 +1,25 @@
+@using DistantSchool.ViewModels
+@model BaseProfileViewModel
+
+<h2>Profile</h2>
+
+<div>
+    <p><strong>User ID:</strong> @Model.UserID</p>
+    <p><strong>First Name:</strong> @Model.FirstName</p>
+    <p><strong>Last Name:</strong> @Model.LastName</p>
+    <p><strong>Patronymic:</strong> @Model.Patronymic</p>
+    <p><strong>Birthdate:</strong> @Model.Birthdate?.ToShortDateString()</p>
+
+    @if (Model is StudentProfileViewModel student)
+    {
+        <p><strong>Student ID:</strong> @student.StudentID</p>
+        <p><strong>Address:</strong> @student.Address</p>
+        <p><strong>Grade Level:</strong> @student.GradeLevel</p>
+    }
+
+    @if (Model is TeacherProfileViewModel teacher)
+    {
+        <p><strong>Teacher ID:</strong> @teacher.TeacherID</p>
+        <p><strong>Teaching Years:</strong> @teacher.TeachingYears</p>
+    }
+</div>

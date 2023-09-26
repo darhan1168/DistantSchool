@@ -15,7 +15,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 builder.Services.AddDbContext<DistantSchool.DataBase.AppContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseLazyLoadingProxies()
+        .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 // Add services to the container.
@@ -23,6 +24,8 @@ builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<ISeedUsersService, SeedUsersService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

@@ -10,7 +10,7 @@ public class UserService : IUserService
     private readonly IBaseRepository<User> _repository;
     private readonly IPasswordService _passwordService;
 
-    public UserService(IBaseRepository<User> repository, IPasswordService passwordService, IConfiguration configuration)
+    public UserService(IBaseRepository<User> repository, IPasswordService passwordService)
     {
         _repository = repository;
         _passwordService = passwordService;
