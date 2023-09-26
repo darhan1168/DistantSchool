@@ -23,9 +23,9 @@ public class UserService : IUserService
             return new Result<bool>(false, $"{nameof(user)} not found");
         }
 
-        if (await IsFreeUserName(user.Username))
+        if (!await IsFreeUserName(user.Username))
         {
-            return new Result<bool>(false, "This email is not available");
+            return new Result<bool>(false, "This username is not available");
         }
 
         var hashPassword = _passwordService.HashPassword(user.PasswordHash);
@@ -58,7 +58,14 @@ public class UserService : IUserService
         return new Result<bool>(true);
     }
 
-    private async Task<User?> GetUserByUsername(string username)
+    public async Task<bool> HasUsersInDataBase()
+    {
+        var usersByEmail = await _repository.Get();
+
+        return usersByEmail.Any();
+    }
+
+    public async Task<User?> GetUserByUsername(string username)
     {
         var usersByEmail = await _repository.Get(u => u.Username == username);
 
@@ -69,6 +76,6 @@ public class UserService : IUserService
     {
         var usersByEmail = await _repository.Get(u => u.Username == username);
 
-        return usersByEmail != null;
+        return !usersByEmail.Any();
     }
 }

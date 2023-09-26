@@ -1,3 +1,7 @@
+using DistantSchool.Repositories.Implementations;
+using DistantSchool.Repositories.Interfaces;
+using DistantSchool.Services.Implementation;
+using DistantSchool.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +19,10 @@ builder.Services.AddDbContext<DistantSchool.DataBase.AppContext>(options =>
 });
 
 // Add services to the container.
+builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPasswordService, PasswordService>();
+builder.Services.AddScoped<ISeedUsersService, SeedUsersService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -38,5 +46,18 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    var seedValuesService = serviceProvider.GetRequiredService<ISeedUsersService>();
+    var addSeedAdminResult = seedValuesService.AddSeedUsers().Result;
+    
+    if (!addSeedAdminResult.IsSuccessful)
+    {
+        var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogError(addSeedAdminResult.Message);
+    }
+}
 
 app.Run();
