@@ -1,0 +1,36 @@
+@model DistantSchool.ViewModels.TeacherProfileViewModel
+
+<h2>Edit Profile</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+<form asp-action="EditTeacher" method="post">
+    <input type="hidden" asp-for="UserID"/>
+    <input type="hidden" asp-for="UserType"/>
+    <input type="hidden" asp-for="TeacherID"/>
+    <input type="hidden" asp-for="TeachingYears"/>
+
+    <div class="form-group">
+        <label asp-for="FirstName">First Name</label>
+        <input asp-for="FirstName" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LastName">Last Name</label>
+        <input asp-for="LastName" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Patronymic">Patronymic</label>
+        <input asp-for="Patronymic" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Birthdate">Birthdate</label>
+        <input asp-for="Birthdate" type="date" class="form-control"/>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>

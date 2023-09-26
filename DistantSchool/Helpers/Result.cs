@@ -22,4 +22,8 @@ public class Result<T>
     {
         IsSuccessful = isSuccessful;
     }
+
+    public Result()
+    {
+    }
 }
