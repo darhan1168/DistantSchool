@@ -137,6 +137,8 @@ public class ProfileController : Controller
             };
             teacher.MapTo(profileViewModel);
         }
+        
+        user.MapTo(profileViewModel);
 
         return profileViewModel;
     }
