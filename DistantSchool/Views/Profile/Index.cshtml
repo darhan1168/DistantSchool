@@ -1,5 +1,5 @@
 @using DistantSchool.ViewModels
-@model BaseProfileViewModel
+@model BaseProfileViewModel?
 
 <h2 class="text-center">Profile</h2>
  
@@ -7,32 +7,39 @@
 {
     <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
 }
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <p><strong>Username:</strong> @Model.Username</p>
-                    <p><strong>First Name:</strong> @Model.FirstName</p>
-                    <p><strong>Last Name:</strong> @Model.LastName</p>
-                    <p><strong>Patronymic:</strong> @Model.Patronymic</p>
-                    <p><strong>Role:</strong> @Model.UserType</p>
-                    <p><strong>Birthdate:</strong> @Model.Birthdate?.ToShortDateString()</p>
+@if (Model == null)
+{
+    <div class="alert alert-danger">Your profile doesn't have actual role</div>
+}
+else
+{
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <p><strong>Username:</strong> @Model.Username</p>
+                        <p><strong>First Name:</strong> @Model.FirstName</p>
+                        <p><strong>Last Name:</strong> @Model.LastName</p>
+                        <p><strong>Patronymic:</strong> @Model.Patronymic</p>
+                        <p><strong>Role:</strong> @Model.UserType</p>
+                        <p><strong>Birthdate:</strong> @Model.Birthdate?.ToShortDateString()</p>
 
-                    @if (Model is StudentProfileViewModel student)
-                    {
-                        <p><strong>Address:</strong> @student.Address</p>
-                        <p><strong>Grade Level:</strong> @student.GradeLevel</p>
-                        <a href="@Url.Action("EditStudent", "Profile", new { id = student.StudentID })" class="btn btn-primary float-right">Edit</a>
-                    }
+                        @if (Model is StudentProfileViewModel student)
+                        {
+                            <p><strong>Address:</strong> @student.Address</p>
+                            <p><strong>Grade Level:</strong> @student.GradeLevel</p>
+                            <a href="@Url.Action("EditStudent", "Profile", new { id = student.StudentID })" class="btn btn-primary float-right">Edit</a>
+                        }
 
-                    @if (Model is TeacherProfileViewModel teacher)
-                    {
-                        <p><strong>Teaching Years:</strong> @teacher.TeachingYears</p>
-                        <a href="@Url.Action("EditTeacher", "Profile", new { id = teacher.TeacherID })" class="btn btn-primary float-right">Edit</a>
-                    }
+                        @if (Model is TeacherProfileViewModel teacher)
+                        {
+                            <p><strong>Teaching Years:</strong> @teacher.TeachingYears</p>
+                            <a href="@Url.Action("EditTeacher", "Profile", new { id = teacher.TeacherID })" class="btn btn-primary float-right">Edit</a>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+}

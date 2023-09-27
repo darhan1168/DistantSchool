@@ -110,11 +110,11 @@ public class ProfileController : Controller
         return RedirectToAction("Index", "Profile");
     }
 
-    private BaseProfileViewModel GetBaseProfileViewModel(User user)
+    private BaseProfileViewModel? GetBaseProfileViewModel(User user)
     {
         BaseProfileViewModel profileViewModel;
 
-        if (user.UserType == UserType.Student)
+        if (user.Student != null)
         {
             var student = user.Student;
 
@@ -126,7 +126,7 @@ public class ProfileController : Controller
             };
             student.MapTo(profileViewModel);
         }
-        else
+        else if (user.Teacher != null) 
         {
             var teacher = user.Teacher;
             
@@ -136,6 +136,10 @@ public class ProfileController : Controller
                 TeachingYears = teacher.TeachingYears
             };
             teacher.MapTo(profileViewModel);
+        }
+        else
+        {
+            return null;
         }
         
         user.MapTo(profileViewModel);
