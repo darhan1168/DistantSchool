@@ -1,0 +1,34 @@
+@model Class
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Class Details</h2>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Class Information</h3>
+                            <p><strong>Class Name:</strong> @Model.Name</p>
+                            <p><strong>Academic Year:</strong> @Model.AcademicYear</p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h3>Students</h3>
+                            <ul class="list-group">
+                                @foreach (var student in Model.Students)
+                                {
+                                    <li class="list-group-item">@student.FirstName @student.LastName</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
