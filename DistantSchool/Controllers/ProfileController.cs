@@ -122,7 +122,8 @@ public class ProfileController : Controller
             {
                 StudentID = student.StudentID,
                 Address = student.Address,
-                GradeLevel = student.GradeLevel
+                GradeLevel = student.GradeLevel,
+                Class = student.Class
             };
             student.MapTo(profileViewModel);
         }
