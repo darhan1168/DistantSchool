@@ -113,11 +113,11 @@ public class ProfileController : Controller
     private BaseProfileViewModel? GetBaseProfileViewModel(User user)
     {
         BaseProfileViewModel profileViewModel;
-
+    
         if (user.Student != null)
         {
             var student = user.Student;
-
+    
             profileViewModel = new StudentProfileViewModel
             {
                 StudentID = student.StudentID,
@@ -143,7 +143,7 @@ public class ProfileController : Controller
         }
         
         user.MapTo(profileViewModel);
-
+    
         return profileViewModel;
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DistantSchool.Models;
 
-public class Teacher
+public partial class Teacher
 {
     public int TeacherID { get; set; }
 

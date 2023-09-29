@@ -13,7 +13,7 @@ public class User
 
     public UserType UserType { get; set; }
 
-    public virtual Student? Student { get; set; } 
+    public virtual Student? Student { get; set; }
 
-    public virtual Teacher? Teacher { get; set; } 
+    public virtual Teacher? Teacher { get; set; }
 }
