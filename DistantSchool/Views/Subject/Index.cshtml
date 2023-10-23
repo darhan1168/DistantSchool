@@ -1,0 +1,17 @@
+@model List<Subject>
+
+<div class="container mt-5">
+    <div class="row">
+        @foreach (var subject in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card" style="min-height: 250px;">
+                    <div class="card-body">
+                        <h5 class="card-title" style="text-align: center">@subject.Name</h5>
+                        <p class="card-text">@subject.Description</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

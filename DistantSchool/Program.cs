@@ -27,6 +27,7 @@ builder.Services.AddScoped<ISeedUsersService, SeedUsersService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<IClassService, ClassService>();
+builder.Services.AddScoped<ISubjectService, SubjectService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
