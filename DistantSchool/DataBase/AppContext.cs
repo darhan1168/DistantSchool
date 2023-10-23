@@ -18,7 +18,11 @@ public partial class AppContext : DbContext
 
     public virtual DbSet<Class> Classes { get; set; }
 
+    public virtual DbSet<Lesson> Lessons { get; set; }
+
     public virtual DbSet<Student> Students { get; set; }
+
+    public virtual DbSet<Subject> Subjects { get; set; }
 
     public virtual DbSet<Teacher> Teachers { get; set; }
 
@@ -33,6 +37,31 @@ public partial class AppContext : DbContext
         modelBuilder.Entity<Class>(entity =>
         {
             entity.Property(e => e.Name).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<Lesson>(entity =>
+        {
+            entity.HasKey(e => e.LessonId);
+
+            entity.ToTable("Lessons ");
+
+            entity.Property(e => e.Date).HasColumnType("datetime");
+            entity.Property(e => e.URL).HasMaxLength(200);
+
+            entity.HasOne(d => d.Class).WithMany(p => p.Lessons)
+                .HasForeignKey(d => d.ClassId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Lessons _Classes");
+
+            entity.HasOne(d => d.Subject).WithMany(p => p.Lessons)
+                .HasForeignKey(d => d.SubjectId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Lessons _Subjects");
+
+            entity.HasOne(d => d.Teacher).WithMany(p => p.Lessons)
+                .HasForeignKey(d => d.TeacherId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Lessons _Teachers");
         });
 
         modelBuilder.Entity<Student>(entity =>
@@ -53,6 +82,12 @@ public partial class AppContext : DbContext
                 .HasForeignKey<Student>(d => d.UserID)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Students_Users");
+        });
+
+        modelBuilder.Entity<Subject>(entity =>
+        {
+            entity.Property(e => e.Description).HasMaxLength(300);
+            entity.Property(e => e.Name).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Teacher>(entity =>
