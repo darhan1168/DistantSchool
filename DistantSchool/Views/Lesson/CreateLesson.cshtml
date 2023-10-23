@@ -1,0 +1,43 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model DistantSchool.ViewModels.LessonViewModel
+
+<div class="container mt-5">
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+    <h2>Create Lesson</h2>
+    <form asp-action="CreateLesson" method="post">
+        <input type="hidden" asp-for="TeacherId"/>
+        <div class="form-group">
+            <label for="selectedClass">Select Class:</label>
+            <select class="form-control" id="selectedClass" asp-for="ClassId">
+                <option value="">Select Class</option>
+                @foreach (var item in Model.Classes)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="selectedSubject">Select Subject:</label>
+            <select class="form-control" id="selectedSubject" asp-for="SubjectId">
+                <option value="">Select Subject</option>
+                @foreach (var item in Model.Subjects)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Date">Date:</label>
+            <input type="date" class="form-control" id="Date" asp-for="Date" min="@DateTime.Now.ToString("yyyy-MM-dd")"/>
+        </div>
+        <div class="form-group">
+            <label for="URL">URL:</label>
+            <input type="text" class="form-control" id="URL" asp-for="URL" placeholder="Enter URL (optional)"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</div>

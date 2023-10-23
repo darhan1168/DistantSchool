@@ -1,6 +1,11 @@
 @model List<Lesson>
 
 <div class="container mt-5">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <a href="@Url.Action("CreateLesson", "Lesson")" class="btn btn-primary">Add Lesson</a>
+        </div>
+    </div>
     <div class="row">
         @if (Model.Any())
         {
@@ -9,7 +14,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Lesson # @lesson.LessonId</h5>
+                            <h5 class="card-title">Lesson</h5>
                             <p class="card-text">Date: @lesson.Date.ToString("MM/dd/yyyy")</p>
                             <p class="card-text">Link: @lesson.URL</p>
                             <p class="card-text">Subject: @lesson.Subject.Name</p>
