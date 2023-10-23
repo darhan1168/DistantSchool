@@ -1,0 +1,28 @@
+@model List<Lesson>
+
+<div class="container mt-5">
+    <div class="row">
+        @if (Model.Any())
+        {
+            @foreach (var lesson in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Lesson # @lesson.LessonId</h5>
+                            <p class="card-text">Date: @lesson.Date.ToString("MM/dd/yyyy")</p>
+                            <p class="card-text">Link: @lesson.URL</p>
+                            <p class="card-text">Subject: @lesson.Subject.Name</p>
+                            <p class="card-text">Teacher: @lesson.Teacher.FirstName @lesson.Teacher.LastName @lesson.Teacher.Patronymic</p>
+                            <p class="card-text">Class: @lesson.Class.Name</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>There are no lessons yet</p>
+        }
+    </div>
+</div>
