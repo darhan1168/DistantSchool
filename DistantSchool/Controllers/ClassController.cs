@@ -1,4 +1,5 @@
 using DistantSchool.Services.Interfaces;
+using DistantSchool.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DistantSchool.Controllers;
@@ -7,11 +8,16 @@ public class ClassController : Controller
 {
     private readonly IUserService _userService;
     private readonly IClassService _classService;
+    private readonly IStudentService _studentService;
 
-    public ClassController(IUserService userService, IClassService classService)
+    public ClassController(
+        IUserService userService, 
+        IClassService classService,
+        IStudentService studentService)
     {
         _userService = userService;
         _classService = classService;
+        _studentService = studentService;
     }
     
     [HttpGet]
@@ -58,5 +64,45 @@ public class ClassController : Controller
         }
 
         return View(schoolClass);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> EditClass(int studentId)
+    {
+        var student = await _studentService.GetStudentById(studentId);
+        
+        if (student == null)
+        {
+            TempData["ErrorMessage"] = $"{nameof(student)} not found";
+                
+            return RedirectToAction("Index", "Profile");
+        }
+
+        var classes = await _classService.GetClasses();
+
+        var viewModel = new EditClassViewModel
+        {
+            StudentId = student.StudentID,
+            StudentName = student.FirstName,
+            Classes = classes
+        };
+
+        return View(viewModel);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditClass(EditClassViewModel model)
+    {
+        var editClassResult =
+            await _studentService.UpdateClassByStudentId(model.StudentId, model.SelectedClassId);
+        
+        if (!editClassResult.IsSuccessful)
+        {
+            TempData["ErrorMessage"] = editClassResult.Message;
+                
+            return View(model);
+        }
+        
+        return RedirectToAction("Details", "Class", new {id = model.SelectedClassId}); 
     }
 }

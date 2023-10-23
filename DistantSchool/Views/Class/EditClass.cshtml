@@ -1,0 +1,20 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model DistantSchool.ViewModels.EditClassViewModel
+
+<div class="container">
+    <h2>Edit Class for @Model.StudentName</h2>
+
+    <form asp-action="EditClass" method="post">
+        <div class="form-group">
+            <label for="selectedClass">Select Class:</label>
+            <select class="form-control" id="selectedClass" asp-for="SelectedClassId">
+                @foreach (var item in Model.Classes)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
+        <input type="hidden" asp-for="StudentId" />
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>

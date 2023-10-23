@@ -20,6 +20,9 @@
                                 @foreach (var student in Model.Students)
                                 {
                                     <li class="list-group-item">@student.FirstName @student.LastName</li>
+                                    <div class="float-right">
+                                        <a href="@Url.Action("EditClass", "Class", new { studentId = student.StudentID })" class="btn btn-primary btn-sm">Edit class</a>
+                                    </div>                                
                                 }
                             </ul>
                         </div>
