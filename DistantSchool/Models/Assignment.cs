@@ -11,7 +11,7 @@ public partial class Assignment
 
     public string? Description { get; set; }
 
-    public AssignmentStatus Status { get; set; }
+    public AssignmentStatus Status { get; set; } = AssignmentStatus.InProgress;
 
     public DateTime Deadline { get; set; }
 
