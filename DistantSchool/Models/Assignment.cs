@@ -17,5 +17,5 @@ public partial class Assignment
 
     public virtual ICollection<Grade> Grades { get; set; } = new List<Grade>();
 
-    public virtual Lessons Lesson { get; set; } = null!;
+    public virtual Lesson Lesson { get; set; } = null!;
 }

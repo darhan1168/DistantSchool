@@ -32,11 +32,11 @@ public class LessonService : ILessonService
         
         if (user.UserType == UserType.Teacher)
         {
-            lessons = await _repository.Get(l => l.TeacherId == user.Teacher.TeacherID);
+            lessons = await _repository.Get(l => l.TeacherClassSubject.TeacherId == user.Teacher.TeacherID);
         }
         else
         {
-            lessons = await _repository.Get(l => l.ClassId == user.Student.ClassID);
+            lessons = await _repository.Get(l => l.TeacherClassSubject.ClassId == user.Student.ClassID);
         }
         
         return lessons;

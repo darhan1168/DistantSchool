@@ -15,7 +15,7 @@ public partial class TeachersClassesSubject
 
     public virtual Class Class { get; set; } = null!;
 
-    public virtual ICollection<Lessons> Lessons { get; set; } = new List<Lessons>();
+    public virtual ICollection<Lesson> Lessons { get; set; } = new List<Lesson>();
 
     public virtual Subject Subject { get; set; } = null!;
 

@@ -12,14 +12,16 @@ public class LessonController : Controller
     private readonly IUserService _userService;
     private readonly IClassService _classService;
     private readonly ISubjectService _subjectService;
+    private readonly ITeachersClassesSubjectsService _teachersClassesSubjectsService;
 
     public LessonController(ILessonService lessonService, IUserService userService, IClassService classService,
-        ISubjectService subjectService)
+        ISubjectService subjectService, ITeachersClassesSubjectsService teachersClassesSubjectsService)
     {
         _lessonService = lessonService;
         _userService = userService;
         _classService = classService;
         _subjectService = subjectService;
+        _teachersClassesSubjectsService = teachersClassesSubjectsService;
     }
     
     [HttpGet]
@@ -58,12 +60,15 @@ public class LessonController : Controller
         
         var classes = await _classService.GetClasses();
         var subjects = await _subjectService.GetSubjects();
+        var teachersClassesSubjects = await _teachersClassesSubjectsService
+            .GetTeachersClassesSubjectsByTeacherId(user.Teacher.TeacherID);
 
         var lessonViewModel = new LessonViewModel()
         {
             TeacherId = user.Teacher.TeacherID,
             Classes = classes,
-            Subjects = subjects
+            Subjects = subjects,
+            TeachersClassesSubjects = teachersClassesSubjects
         };
 
         return View(lessonViewModel);

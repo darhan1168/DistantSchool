@@ -22,7 +22,7 @@ public partial class AppContext : DbContext
 
     public virtual DbSet<Grade> Grades { get; set; }
 
-    public virtual DbSet<Lessons> Lessons { get; set; }
+    public virtual DbSet<Lesson> Lessons { get; set; }
 
     public virtual DbSet<Student> Students { get; set; }
 
@@ -72,7 +72,7 @@ public partial class AppContext : DbContext
                 .HasConstraintName("FK_Grades_Students");
         });
 
-        modelBuilder.Entity<Lessons>(entity =>
+        modelBuilder.Entity<Lesson>(entity =>
         {
             entity.HasKey(e => e.LessonId);
 

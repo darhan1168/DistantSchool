@@ -7,19 +7,13 @@ public partial class Lesson
 {
     public int LessonId { get; set; }
 
-    public int ClassId { get; set; }
-
-    public int TeacherId { get; set; }
-
-    public int SubjectId { get; set; }
+    public int TeacherClassSubjectId { get; set; }
 
     public DateTime Date { get; set; }
 
     public string? URL { get; set; }
 
-    public virtual Class Class { get; set; } = null!;
+    public virtual ICollection<Assignment> Assignments { get; set; } = new List<Assignment>();
 
-    public virtual Subject Subject { get; set; } = null!;
-
-    public virtual Teacher Teacher { get; set; } = null!;
+    public virtual TeachersClassesSubject TeacherClassSubject { get; set; } = null!;
 }

@@ -10,23 +10,12 @@
     <form asp-action="CreateLesson" method="post">
         <input type="hidden" asp-for="TeacherId"/>
         <div class="form-group">
-            <label for="selectedClass">Select Class:</label>
-            <select class="form-control" id="selectedClass" asp-for="ClassId">
-                <option value="">Select Class</option>
-                @foreach (var item in Model.Classes)
+            <label for="selectedTeacherClassSubject">Select your class and subject:</label>
+            <select class="form-control" id="selectedTeacherClassSubject" asp-for="TeacherClassSubjectId">
+                <option value="">Select your class and subject</option>
+                @foreach (var item in Model.TeachersClassesSubjects)
                 {
-                    <option value="@item.Id">@item.Name</option>
-                }
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="selectedSubject">Select Subject:</label>
-            <select class="form-control" id="selectedSubject" asp-for="SubjectId">
-                <option value="">Select Subject</option>
-                @foreach (var item in Model.Subjects)
-                {
-                    <option value="@item.Id">@item.Name</option>
+                    <option value="@item.TeacherClassSubjectId">@item.Class.Name - @item.Subject.Name</option>
                 }
             </select>
         </div>

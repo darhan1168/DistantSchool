@@ -11,6 +11,7 @@ public class LessonViewModel
     public int TeacherId { get; set; }
 
     public int SubjectId { get; set; }
+    public int TeacherClassSubjectId { get; set; }
 
     public DateTime Date { get; set; }
 
@@ -19,4 +20,5 @@ public class LessonViewModel
     public List<Class> Classes { get; set; }
 
     public List<Subject> Subjects { get; set; }
+    public List<TeachersClassesSubject> TeachersClassesSubjects { get; set; }
 }

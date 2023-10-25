@@ -17,9 +17,9 @@
                             <h5 class="card-title">Lesson</h5>
                             <p class="card-text">Date: @lesson.Date.ToString("MM/dd/yyyy")</p>
                             <p class="card-text">Link: @lesson.URL</p>
-                            <p class="card-text">Subject: @lesson.Subject.Name</p>
-                            <p class="card-text">Teacher: @lesson.Teacher.FirstName @lesson.Teacher.LastName @lesson.Teacher.Patronymic</p>
-                            <p class="card-text">Class: @lesson.Class.Name</p>
+                            <p class="card-text">Subject: @lesson.TeacherClassSubject.Subject.Name</p>
+                            <p class="card-text">Teacher: @lesson.TeacherClassSubject.Teacher.FirstName @lesson.TeacherClassSubject.Teacher.LastName @lesson.TeacherClassSubject.Teacher.Patronymic</p>
+                            <p class="card-text">Class: @lesson.TeacherClassSubject.Class.Name</p>
                         </div>
                     </div>
                 </div>
