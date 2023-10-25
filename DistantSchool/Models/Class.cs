@@ -11,7 +11,7 @@ public partial class Class
 
     public int AcademicYear { get; set; }
 
-    public virtual ICollection<Lesson> Lessons { get; set; } = new List<Lesson>();
-
     public virtual ICollection<Student> Students { get; set; } = new List<Student>();
+
+    public virtual ICollection<TeachersClassesSubject> TeachersClassesSubjects { get; set; } = new List<TeachersClassesSubject>();
 }

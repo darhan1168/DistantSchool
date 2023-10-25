@@ -25,5 +25,7 @@ public partial class Student
 
     public virtual Class? Class { get; set; }
 
+    public virtual ICollection<Grade> Grades { get; set; } = new List<Grade>();
+
     public virtual User User { get; set; } = null!;
 }
