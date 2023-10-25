@@ -91,4 +91,12 @@ public class LessonController : Controller
         
         return RedirectToAction("Index");
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Details(int id)
+    {
+        var lesson = await _lessonService.GetLessonById(id);
+
+        return View(lesson);
+    }
 }

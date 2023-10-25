@@ -1,0 +1,42 @@
+@model Lesson
+
+<div class="container mt-5">
+    <h2>Lesson Details</h2>
+    <dl class="row">
+        <dt class="col-sm-3">Date:</dt>
+        <dd class="col-sm-9">@Model.Date.ToString("MM/dd/yyyy")</dd>
+        
+        <dt class="col-sm-3">URL:</dt>
+        <dd class="col-sm-9">@Model.URL</dd>
+
+        <dt class="col-sm-3">Assignments:</dt>
+        <dd class="col-sm-9">
+            @if (Model.Assignments.Any())
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Assignment ID</th>
+                            <th>Description</th>
+                            <!-- Add more columns if needed -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var assignment in Model.Assignments)
+                        {
+                            <tr>
+                                <td>@assignment.AssignmentId</td>
+                                <td>@assignment.Description</td>
+                                <!-- Add more columns if needed -->
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No assignments for this lesson.</p>
+            }
+        </dd>
+    </dl>
+</div>

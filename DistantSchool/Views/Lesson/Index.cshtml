@@ -20,6 +20,7 @@
                             <p class="card-text">Subject: @lesson.TeacherClassSubject.Subject.Name</p>
                             <p class="card-text">Teacher: @lesson.TeacherClassSubject.Teacher.FirstName @lesson.TeacherClassSubject.Teacher.LastName @lesson.TeacherClassSubject.Teacher.Patronymic</p>
                             <p class="card-text">Class: @lesson.TeacherClassSubject.Class.Name</p>
+                            <a href="@Url.Action("Details", "Lesson", new { id = lesson.LessonId })" class="btn btn-info">Details</a>
                         </div>
                     </div>
                 </div>

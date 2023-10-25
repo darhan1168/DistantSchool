@@ -41,4 +41,11 @@ public class LessonService : ILessonService
         
         return lessons;
     }
+
+    public async Task<Lesson> GetLessonById(int lessonId)
+    {
+        var lesson = await _repository.GetById(lessonId);
+
+        return lesson;
+    }
 }
