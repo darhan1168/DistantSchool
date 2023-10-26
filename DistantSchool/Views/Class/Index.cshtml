@@ -5,6 +5,7 @@
     <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
 }
 <div class="container">
+    <a href="@Url.Action("GetStudentsWithoutClass", "Class")" class="btn btn-primary btn-sm">Get students without class</a>
     <div class="row justify-content-center">
         @foreach (var schoolClass in Model)
         {

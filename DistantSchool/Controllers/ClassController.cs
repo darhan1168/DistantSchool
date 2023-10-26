@@ -105,4 +105,36 @@ public class ClassController : Controller
         
         return RedirectToAction("Details", "Class", new {id = model.SelectedClassId}); 
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetStudentsWithoutClass()
+    {
+        var studentsWithoutClass = await _studentService.GetStudentsWithoutClass();
+        
+        return View(studentsWithoutClass);
+    }
+    
+    // [HttpGet]
+    // public async Task<IActionResult> AddToClass(int studentId)
+    // {
+    //     var student = await _studentService.GetStudentById(studentId);
+    //     
+    //     if (student == null)
+    //     {
+    //         TempData["ErrorMessage"] = $"{nameof(student)} not found";
+    //             
+    //         return RedirectToAction("Index", "Profile");
+    //     }
+    //     
+    //     var classes = await _classService.GetClasses();
+    //
+    //     var viewModel = new EditClassViewModel
+    //     {
+    //         StudentId = student.StudentID,
+    //         StudentName = student.FirstName,
+    //         Classes = classes
+    //     };
+    //
+    //     return View(viewModel);
+    // }
 }

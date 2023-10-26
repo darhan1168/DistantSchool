@@ -38,7 +38,7 @@ public class StudentService : IStudentService
             return new Result<bool>(false, $"{nameof(student)} or {nameof(schoolClass)} not found");
         }
 
-        student.Class = schoolClass;
+        //student.Class = schoolClass;
         student.ClassID = schoolClass.Id;
         
         var updatingResult = await _repository.Update(student);
@@ -49,5 +49,12 @@ public class StudentService : IStudentService
     public async Task<Student?> GetStudentById(int id)
     {
         return await _repository.GetById(id);
+    }
+
+    public async Task<List<Student>> GetStudentsWithoutClass()
+    {
+        var studentsWithoutClass = await _repository.Get(s => s.Class == null);
+
+        return studentsWithoutClass;
     }
 }
