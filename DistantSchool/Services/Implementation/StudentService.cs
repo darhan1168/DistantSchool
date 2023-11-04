@@ -55,17 +55,18 @@ public class StudentService : IStudentService
     public async Task<List<Student>> GetAllStudents(string searchQuery = null)
     {
         List<Student> students;
-        
+
         students = await _repository.Get();
-        
+
         if (!String.IsNullOrEmpty(searchQuery))
         {
             // Придумати як дістати саме за ПІБ
-            
+
             //students = await _repository.Get(s => s.);
         }
 
         return students;
+    }
 
     public async Task<List<Student>> GetStudentsWithoutClass()
     {
