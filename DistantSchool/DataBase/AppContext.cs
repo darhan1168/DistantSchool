@@ -59,7 +59,7 @@ public partial class AppContext : DbContext
         {
             entity.Property(e => e.Comment).HasMaxLength(150);
             entity.Property(e => e.Date).HasColumnType("datetime");
-            entity.Property(e => e.Grade1).HasColumnName("Grade");
+            entity.Property(e => e.Value).HasColumnName("Grade");
 
             entity.HasOne(d => d.Assignment).WithMany(p => p.Grades)
                 .HasForeignKey(d => d.AssignmentId)
