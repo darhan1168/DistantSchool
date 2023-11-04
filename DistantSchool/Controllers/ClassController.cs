@@ -1,3 +1,4 @@
+using DistantSchool.Models;
 using DistantSchool.Services.Interfaces;
 using DistantSchool.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -106,5 +107,78 @@ public class ClassController : Controller
         }
         
         return RedirectToAction("Details", "Class", new {id = model.SelectedClassId}); 
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetStudentsWithoutClass()
+    {
+        var studentsWithoutClass = await _studentService.GetStudentsWithoutClass();
+        
+        return View(studentsWithoutClass);
+    }
+    
+    [HttpGet]
+    public IActionResult AddClass()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddClass(Class newClass)
+    {
+        if (ModelState.IsValid)
+        {
+            var addingResult = await _classService.AddClass(newClass);
+        
+            if (!addingResult.IsSuccessful)
+            {
+                TempData["ErrorMessage"] = addingResult.Message;
+                
+                return View(newClass);
+            }
+            
+            return RedirectToAction("Index"); 
+        }
+        
+        return View(newClass);
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> DeleteClass(int id)
+    {
+        var deletingResult = await _classService.DeleteClass(id);
+        
+        if (!deletingResult.IsSuccessful)
+        {
+            TempData["ErrorMessage"] = deletingResult.Message;
+        }
+        
+        return RedirectToAction("Index"); 
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> EditValuesOfClass(int id)
+    { 
+        var classToEdit = await _classService.GetClassById(id);
+        
+        return View(classToEdit);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditValuesOfClass(Class updatedClass)
+    {
+        if (ModelState.IsValid)
+        {
+            var updatingResult = await _classService.UpdateClass(updatedClass);
+        
+            if (!updatingResult.IsSuccessful)
+            {
+                TempData["ErrorMessage"] = updatingResult.Message;
+            }
+            
+            return RedirectToAction("Details", new { id = updatedClass.Id });
+        }
+
+        return View(updatedClass);
     }
 }

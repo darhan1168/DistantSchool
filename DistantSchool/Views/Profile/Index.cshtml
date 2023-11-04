@@ -29,7 +29,10 @@ else
                         {
                             <p><strong>Address:</strong> @student.Address</p>
                             <p><strong>Grade Level:</strong> @student.GradeLevel</p>
-                            <p><strong>Class:</strong> @student.Class.Name</p>                                           
+                            if (student.Class != null)
+                            {
+                                <p><strong>Class:</strong> @student.Class.Name</p>   
+                            }
                             <a href="@Url.Action("EditStudent", "Profile", new { id = student.StudentID })" class="btn btn-primary float-right">Edit</a>
                         }
 

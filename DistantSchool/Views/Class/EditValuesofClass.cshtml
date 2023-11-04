@@ -1,0 +1,18 @@
+@model Class
+
+<form asp-action="EditValuesOfClass" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="Students" />
+    
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="AcademicYear"></label>
+        <input asp-for="AcademicYear" class="form-control" />
+        <span asp-validation-for="AcademicYear" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Class</button>
+</form>

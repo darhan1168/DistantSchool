@@ -86,7 +86,7 @@ public partial class AppContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Lessons _TeachersClassesSubjects");
         });
-
+        
         modelBuilder.Entity<Student>(entity =>
         {
             entity.HasIndex(e => e.UserID, "UQ_UserID").IsUnique();
