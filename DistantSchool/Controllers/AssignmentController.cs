@@ -43,4 +43,17 @@ public class AssignmentController : Controller
         
         return RedirectToAction("Details", "Lesson", new { id = assignmentViewModel.LessonId});
     }
+    
+    [HttpGet]
+    public async Task<IActionResult> Details(int id)
+    {
+        var assignment = await _assignmentService.GetAssignmentById(id);
+
+        if (assignment == null)
+        {
+            return NotFound();
+        }
+
+        return View(assignment); 
+    }
 }

@@ -10,11 +10,13 @@ public class StudentService : IStudentService
 {
     private readonly IBaseRepository<Student> _repository;
     private readonly IClassService _classService;
+    private readonly IGradeService _gradeService;
 
-    public StudentService(IBaseRepository<Student> repository, IClassService classService)
+    public StudentService(IBaseRepository<Student> repository, IClassService classService, IGradeService gradeService)
     {
         _repository = repository;
         _classService = classService;
+        _gradeService = gradeService;
     }
 
     public async Task<Result<bool>> UpdateStudent(Student student)

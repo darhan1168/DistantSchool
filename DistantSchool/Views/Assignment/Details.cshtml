@@ -1,0 +1,45 @@
+@model Assignment
+
+<div class="container mt-5">
+    <h2>Assignment Details</h2>
+    <dl class="row">
+        <dt class="col-sm-3">Description:</dt>
+        <dd class="col-sm-9">@Model.Description</dd>
+
+        <dt class="col-sm-3">Status:</dt>
+        <dd class="col-sm-9">@Model.Status</dd>
+
+        <dt class="col-sm-3">Deadline:</dt>
+        <dd class="col-sm-9">@Model.Deadline.ToString("MM/dd/yyyy")</dd>
+    </dl>
+
+    <h3>Grades</h3>
+    <dl class="row">
+        <dt class="col-sm-3">Students:</dt>
+        <dd class="col-sm-9">
+            @if (Model.Lesson.TeacherClassSubject.Class.Students.Any())
+            {
+                <ul>
+                    @foreach (var student in Model.Lesson.TeacherClassSubject.Class.Students)
+                    {
+                        <li>
+                            @student.FirstName @student.LastName @student.Patronymic
+                            @if (student.Grades.Any(g => g.Assignment == Model))
+                            {
+                                <div>@student.Grades.FirstOrDefault(g => g.Assignment == Model)?.Value</div>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("RateGrade", "Grade", new { studentId = student.StudentID, lessonId = Model.LessonId, assignmentId = Model.AssignmentId})" class="btn btn-primary btn-sm">Rate Grade</a>
+                            }
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No students in class</p>
+            }
+        </dd>
+    </dl>
+</div>

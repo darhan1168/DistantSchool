@@ -1,0 +1,23 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model DistantSchool.ViewModels.CreateGradeViewModel
+
+<h2>Rate Grade</h2>
+
+<form asp-action="RateGrade" method="post">
+    <input type="hidden" asp-for="StudentId" />
+    <input type="hidden" asp-for="AssignmentId" />
+
+    <div class="form-group">
+        <label asp-for="Value">Grade Value:</label>
+        <input asp-for="Value" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Comment">Comment:</label>
+        <input asp-for="Comment" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit Grade</button>
+    </div>
+</form>

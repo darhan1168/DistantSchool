@@ -53,4 +53,11 @@ public class AssignmentService : IAssignmentService
         
         return !deletingResult.IsSuccessful ? new Result<bool>(false, deletingResult.Message) : new Result<bool>(true);
     }
+
+    public async Task<Assignment> GetAssignmentById(int assignmentId)
+    {
+        var assignment = await _repository.GetById(assignmentId);
+
+        return assignment;
+    }
 }
