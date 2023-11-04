@@ -9,4 +9,5 @@ public class StudentProfileViewModel : BaseProfileViewModel
     public int GradeLevel { get; set; }
     public int ClassID { get; set; }
     public Class Class { get; set; }
+    public int ClassID { get; set; }
 }

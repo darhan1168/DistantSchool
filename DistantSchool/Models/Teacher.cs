@@ -19,5 +19,7 @@ public partial class Teacher
 
     public int UserID { get; set; }
 
+    public virtual ICollection<TeachersClassesSubject> TeachersClassesSubjects { get; set; } = new List<TeachersClassesSubject>();
+
     public virtual User User { get; set; } = null!;
 }

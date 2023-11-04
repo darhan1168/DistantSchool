@@ -1,0 +1,25 @@
+@model List<Student>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+<div class="container">
+    <div class="row justify-content-center">
+        @foreach (var student in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <form class="form border p-3 text-center">
+                    <div class="form-group">
+                        <strong>Name:</strong> @student.FirstName @student.LastName @student.Patronymic
+                    </div>
+                    <div class="form-group">
+                        <strong>Class:</strong> @student.Class.Name
+                    </div>
+
+                    @* <a class="btn btn-primary" asp-controller="Class" asp-action="Details" asp-route-id="@schoolClass.Id">Details</a> *@
+                </form>
+            </div>
+        }
+    </div>
+</div>

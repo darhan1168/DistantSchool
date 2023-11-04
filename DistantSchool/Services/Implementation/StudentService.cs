@@ -2,6 +2,7 @@ using DistantSchool.Helpers;
 using DistantSchool.Models;
 using DistantSchool.Repositories.Interfaces;
 using DistantSchool.Services.Interfaces;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DistantSchool.Services.Implementation;
 
@@ -50,6 +51,21 @@ public class StudentService : IStudentService
     {
         return await _repository.GetById(id);
     }
+
+    public async Task<List<Student>> GetAllStudents(string searchQuery = null)
+    {
+        List<Student> students;
+        
+        students = await _repository.Get();
+        
+        if (!String.IsNullOrEmpty(searchQuery))
+        {
+            // Придумати як дістати саме за ПІБ
+            
+            //students = await _repository.Get(s => s.);
+        }
+
+        return students;
 
     public async Task<List<Student>> GetStudentsWithoutClass()
     {

@@ -33,9 +33,11 @@ public class ClassController : Controller
             return RedirectToAction("Login", "Account");
         }
 
-        if (user.Student != null)
+        var person = user.Student;
+
+        if (person != null)
         {
-            return RedirectToAction("Details", new { id = user.Student.ClassID });
+            return RedirectToAction("Details", new { id = person.ClassID });
         }
         else
         {

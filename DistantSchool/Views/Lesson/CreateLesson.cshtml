@@ -1,0 +1,32 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model DistantSchool.ViewModels.LessonViewModel
+
+<div class="container mt-5">
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+    <h2>Create Lesson</h2>
+    <form asp-action="CreateLesson" method="post">
+        <input type="hidden" asp-for="TeacherId"/>
+        <div class="form-group">
+            <label for="selectedTeacherClassSubject">Select your class and subject:</label>
+            <select class="form-control" id="selectedTeacherClassSubject" asp-for="TeacherClassSubjectId">
+                <option value="">Select your class and subject</option>
+                @foreach (var item in Model.TeachersClassesSubjects)
+                {
+                    <option value="@item.TeacherClassSubjectId">@item.Class.Name - @item.Subject.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Date">Date:</label>
+            <input type="date" class="form-control" id="Date" asp-for="Date" min="@DateTime.Now.ToString("yyyy-MM-dd")"/>
+        </div>
+        <div class="form-group">
+            <label for="URL">URL:</label>
+            <input type="text" class="form-control" id="URL" asp-for="URL" placeholder="Enter URL (optional)"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</div>
