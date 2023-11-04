@@ -16,8 +16,7 @@ public class StudentController : Controller
     public async Task<IActionResult> GetStudents(string searchQuery = null)
     {
         var students = await _studentService.GetAllStudents(searchQuery);
-
-        return Ok(students);
-        //return View(students);
+        
+        return View(students);
     }
 }
