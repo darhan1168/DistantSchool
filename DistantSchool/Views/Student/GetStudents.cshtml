@@ -5,6 +5,52 @@
     <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
 }
 <div class="container">
+    <form class="form-inline mb-3">
+        <div class="form-group mr-2">
+            <label for="searchQuery">Search by Name:</label>
+            <input type="text" class="form-control" id="searchQuery" name="searchQuery">
+        </div>
+        <div class="form-group mr-2">
+            <label for="className">Filter by Class:</label>
+            <select class="form-control" id="className" name="className">
+                <option value="">All Classes</option>
+                <option value="11A">11A</option>
+                <option value="11B">11B</option>
+                <option value="11C">11C</option>
+                <option value="10A">10A</option>
+                <option value="10B">10B</option>
+                <option value="10C">10C</option>
+                <option value="9A">9A</option>
+                <option value="9B">9B</option>
+                <option value="9C">9C</option>
+                <option value="8A">8A</option>
+                <option value="8B">8B</option>
+                <option value="8C">8C</option>
+                <option value="7A">7A</option>
+                <option value="7B">7B</option>
+                <option value="7C">7C</option>
+                <option value="6A">6A</option>
+                <option value="6B">6B</option>
+                <option value="6C">6C</option>
+                <option value="5A">5A</option>
+                <option value="5B">5B</option>
+                <option value="5C">5C</option>
+                <option value="4A">4A</option>
+                <option value="4B">4B</option>
+                <option value="4C">4C</option>
+                <option value="3A">3A</option>
+                <option value="3B">3B</option>
+                <option value="3C">3C</option>
+                <option value="2A">2A</option>
+                <option value="2B">2B</option>
+                <option value="2C">2C</option>
+                <option value="1A">1A</option>
+                <option value="1B">1B</option>
+                <option value="1C">1C</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
     <div class="row justify-content-center">
         @foreach (var student in Model)
         {
@@ -16,8 +62,6 @@
                     <div class="form-group">
                         <strong>Class:</strong> @student.Class.Name
                     </div>
-
-                    @* <a class="btn btn-primary" asp-controller="Class" asp-action="Details" asp-route-id="@schoolClass.Id">Details</a> *@
                 </form>
             </div>
         }

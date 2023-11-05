@@ -13,9 +13,9 @@ public class StudentController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetStudents(string searchQuery = null)
+    public async Task<IActionResult> GetStudents(string searchQuery = null, string className = null)
     {
-        var students = await _studentService.GetAllStudents(searchQuery);
+        var students = await _studentService.GetAllStudents(searchQuery, className);
         
         return View(students);
     }

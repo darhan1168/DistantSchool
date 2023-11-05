@@ -54,17 +54,21 @@ public class StudentService : IStudentService
         return await _repository.GetById(id);
     }
 
-    public async Task<List<Student>> GetAllStudents(string searchQuery = null)
+    public async Task<List<Student>> GetAllStudents(string searchQuery = null, string className = null)
     {
         List<Student> students;
 
         students = await _repository.Get();
 
-        if (!String.IsNullOrEmpty(searchQuery))
+        if (!string.IsNullOrEmpty(searchQuery))
         {
-            // Придумати як дістати саме за ПІБ
-
-            //students = await _repository.Get(s => s.);
+            students = await _repository.Get(s => s.FirstName.Contains(searchQuery) || s.LastName.Contains(searchQuery) 
+                || s.Patronymic.Contains(searchQuery));
+        }
+        
+        if (!string.IsNullOrEmpty(className))
+        {
+            students = await _repository.Get(s => s.Class.Name == className);
         }
 
         return students;
