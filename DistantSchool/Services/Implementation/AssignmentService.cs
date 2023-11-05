@@ -61,7 +61,7 @@ public class AssignmentService : IAssignmentService
         return assignment;
     }
 
-    public async Task<List<Assignment>> GetAssignmentsByUser(User user)
+    public async Task<List<Assignment>> GetAssignmentsByUser(User user, string subjectName = null)
     {
         List<Assignment> assignments;
         
@@ -72,6 +72,11 @@ public class AssignmentService : IAssignmentService
         else
         {
             assignments = await _repository.Get(a => a.Lesson.TeacherClassSubject.Class.Students.Contains(user.Student));
+        }
+        
+        if (!string.IsNullOrEmpty(subjectName))
+        {
+            assignments = assignments.Where(a => a.Lesson.TeacherClassSubject.Subject.Name == subjectName).ToList();
         }
 
         return assignments;

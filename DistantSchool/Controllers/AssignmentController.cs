@@ -18,7 +18,7 @@ public class AssignmentController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string subjectName = null)
     {
         var username = User.Identity.Name;
 
@@ -29,7 +29,7 @@ public class AssignmentController : Controller
             return RedirectToAction("Login", "Account");
         }
 
-        var assignments = await _assignmentService.GetAssignmentsByUser(user);
+        var assignments = await _assignmentService.GetAssignmentsByUser(user, subjectName);
 
         return View(assignments);
     }

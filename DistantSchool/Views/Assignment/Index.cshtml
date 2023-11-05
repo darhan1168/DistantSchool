@@ -2,6 +2,24 @@
 
 <div class="container mt-5">
     <h2>Assignments</h2>
+    <form class="form-inline mb-3">
+        <div class="form-group mr-2">
+            <label for="searchQuery">Search by Name:</label>
+            <input type="text" class="form-control" id="searchQuery" name="searchQuery">
+        </div>
+        <div class="form-group mr-2">
+            <label for="className">Filter by Class:</label>
+            <select class="form-control" id="className" name="className">
+                <option value="">All Subjects</option>
+                <option value="11B">Mathematics</option>
+                <option value="11C">Science</option>
+                <option value="10A">History</option>
+                <option value="10B">Literature</option>
+                <option value="10C">Computer Science</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
     <div class="row">
         @if (Model.Any())
         {
