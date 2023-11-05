@@ -9,10 +9,29 @@ namespace DistantSchool.Controllers;
 public class AssignmentController : Controller
 {
     private readonly IAssignmentService _assignmentService;
+    private readonly IUserService _userService;
 
-    public AssignmentController(IAssignmentService assignmentService)
+    public AssignmentController(IAssignmentService assignmentService, IUserService userService)
     {
         _assignmentService = assignmentService;
+        _userService = userService;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Index()
+    {
+        var username = User.Identity.Name;
+
+        var user = await _userService.GetUserByUsername(username);
+
+        if (user == null)
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        var assignments = await _assignmentService.GetAssignmentsByUser(user);
+
+        return View(assignments);
     }
 
     [HttpGet]

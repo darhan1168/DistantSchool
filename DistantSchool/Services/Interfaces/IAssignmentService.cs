@@ -9,4 +9,5 @@ public interface IAssignmentService
     Task<Result<bool>> UpdateAssignment(Assignment assignment);
     Task<Result<bool>> DeleteAssignment(int assignmentId);
     Task<Assignment> GetAssignmentById(int assignmentId);
+    Task<List<Assignment>> GetAssignmentsByUser(User user);
 }

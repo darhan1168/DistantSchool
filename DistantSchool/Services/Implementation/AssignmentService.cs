@@ -60,4 +60,20 @@ public class AssignmentService : IAssignmentService
 
         return assignment;
     }
+
+    public async Task<List<Assignment>> GetAssignmentsByUser(User user)
+    {
+        List<Assignment> assignments;
+        
+        if (user.UserType == UserType.Teacher)
+        {
+            assignments = await _repository.Get(a => a.Lesson.TeacherClassSubject.Teacher == user.Teacher);
+        }
+        else
+        {
+            assignments = await _repository.Get(a => a.Lesson.TeacherClassSubject.Class.Students.Contains(user.Student));
+        }
+
+        return assignments;
+    }
 }

@@ -1,0 +1,42 @@
+@model List<Assignment>
+
+<div class="container mt-5">
+    <h2>Assignments</h2>
+    <div class="row">
+        @if (Model.Any())
+        {
+            @foreach (var assignment in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Assignment # @assignment.AssignmentId</h5>
+                            <p class="card-text">Description: @assignment.Description</p>
+                            <p class="card-text">Deadline: @assignment.Deadline.ToString("MM/dd/yyyy")</p>
+                            <p class="card-text">Status: @assignment.Status</p>
+                            @if (assignment.Grades.Any())
+                            {
+                                <p class="card-text">Grades:</p>
+                                <ul>
+                                    @foreach (var grade in assignment.Grades)
+                                    {
+                                        <li>Student ID: @grade.StudentId, Grade: @grade.Value, Comment: @grade.Comment</li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <p class="card-text">No grades yet</p>
+                            }
+                        </div>
+                    </div>
+                    <a href="@Url.Action("Details", "Assignment", new { id = assignment.AssignmentId })" class="btn btn-info btn-sm">Details</a>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No assignments available.</p>
+        }
+    </div>
+</div>
