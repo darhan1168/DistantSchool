@@ -58,7 +58,7 @@ public class LessonController : Controller
             return RedirectToAction("Index");
         }
         
-        var classes = await _classService.GetClasses();
+        var classes = await _classService.GetClasses(SortingParam.Name);
         var subjects = await _subjectService.GetSubjects();
         var teachersClassesSubjects = await _teachersClassesSubjectsService
             .GetTeachersClassesSubjectsByTeacherId(user.Teacher.TeacherID);

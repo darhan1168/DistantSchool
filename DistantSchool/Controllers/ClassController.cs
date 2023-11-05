@@ -22,7 +22,7 @@ public class ClassController : Controller
     }
     
     [HttpGet]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(SortingParam sortOrder)
     {
         var username = User.Identity.Name;
 
@@ -41,7 +41,7 @@ public class ClassController : Controller
         }
         else
         {
-            var classes = await _classService.GetClasses();
+            var classes = await _classService.GetClasses(sortOrder);
 
             if (!classes.Any())
             {
@@ -81,7 +81,7 @@ public class ClassController : Controller
             return RedirectToAction("Index", "Profile");
         }
 
-        var classes = await _classService.GetClasses();
+        var classes = await _classService.GetClasses(SortingParam.Name);
 
         var viewModel = new EditClassViewModel
         {

@@ -8,7 +8,6 @@ public interface IClassService
     Task<Result<bool>> AddClass(Class schoolClass);
     Task<Result<bool>> UpdateClass(Class schoolClass);
     Task<Result<bool>> DeleteClass(int classId);
-    //Task<bool> HaveStudentsInClass(Class schoolClass);
-    Task<List<Class>> GetClasses();
+    Task<List<Class>> GetClasses(SortingParam sortOrder);
     Task<Class> GetClassById(int classId);
 }

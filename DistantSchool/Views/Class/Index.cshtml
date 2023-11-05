@@ -5,10 +5,23 @@
     <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
 }
 <div class="container">
+    <form class="form-inline mb-3">
+        <div class="form-group mr-2">
+            <label for="sortingParam">Sort By:</label>
+            <select class="form-control" id="sortingParam" name="sortOrder">
+                <option value="Name">Class Name (A-Z)</option>
+                <option value="NameDesc">Class Name (Z-A)</option>
+                <option value="AcademicYear">Academic Year (Ascending)</option>
+                <option value="AcademicYearDesc">Academic Year (Descending)</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Sort</button>
+    </form>
+    
     <a href="@Url.Action("GetStudentsWithoutClass", "Class")" class="btn btn-primary btn-sm">Get students without class</a>
-    
+
     <a href="@Url.Action("AddClass", "Class")" class="btn btn-primary btn-sm">Add new class</a>
-    
+
     <div class="row justify-content-center">
         @foreach (var schoolClass in Model)
         {

@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+using System.Reflection;
 using DistantSchool.Helpers;
 using DistantSchool.Models;
 using DistantSchool.Repositories.Interfaces;
@@ -57,9 +59,11 @@ public class ClassService : IClassService
         return !deletingResult.IsSuccessful ? new Result<bool>(false, deletingResult.Message) : new Result<bool>(true);
     }
 
-    public async Task<List<Class>> GetClasses()
+    public async Task<List<Class>> GetClasses(SortingParam sortOrder)
     {
-        var classes = await _repository.Get();
+        var query = GetOrderByExpression(sortOrder);
+        
+        var classes = await _repository.Get(orderBy: query);
 
         return classes;
     }
@@ -69,5 +73,28 @@ public class ClassService : IClassService
         var classById = await _repository.GetById(classId);
 
         return classById;
+    }
+    
+    private Expression<Func<IQueryable<Class>, IOrderedQueryable<Class>>> GetOrderByExpression(SortingParam sortBy)
+    {
+        Expression<Func<IQueryable<Class>, IOrderedQueryable<Class>>> query;
+
+        switch (sortBy)
+        {
+            case SortingParam.NameDesc:
+                query = q => q.OrderByDescending(q => q.Name);
+                break;
+            case SortingParam.AcademicYear:
+                query = q => q.OrderBy(q => q.AcademicYear);
+                break;
+            case SortingParam.AcademicYearDesc:
+                query = q => q.OrderByDescending(q => q.AcademicYear);
+                break;
+            default:
+                query = q => q.OrderBy(q => q.Name);
+                break;
+        }
+        
+        return query;
     }
 }
