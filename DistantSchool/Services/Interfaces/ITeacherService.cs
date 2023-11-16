@@ -7,4 +7,5 @@ public interface ITeacherService
 {
     Task<Result<bool>> UpdateTeacher(Teacher teacher);
     Task<Teacher?> GetTeacherById(int id);
+    Task<List<Teacher>> GetAllTeachers();
 }

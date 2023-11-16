@@ -30,4 +30,11 @@ public class TeacherService : ITeacherService
     {
         return await _repository.GetById(id);
     }
+
+    public async Task<List<Teacher>> GetAllTeachers()
+    {
+        var teachers = await _repository.Get();
+
+        return teachers;
+    }
 }
