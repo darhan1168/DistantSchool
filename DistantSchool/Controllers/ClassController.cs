@@ -10,15 +10,18 @@ public class ClassController : Controller
     private readonly IUserService _userService;
     private readonly IClassService _classService;
     private readonly IStudentService _studentService;
+    private readonly ISubjectService _subjectService;
 
     public ClassController(
         IUserService userService, 
         IClassService classService,
-        IStudentService studentService)
+        IStudentService studentService,
+        ISubjectService subjectService)
     {
         _userService = userService;
         _classService = classService;
         _studentService = studentService;
+        _subjectService = subjectService;
     }
     
     [HttpGet]
@@ -180,5 +183,44 @@ public class ClassController : Controller
         }
 
         return View(updatedClass);
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> Journal()
+    {
+        var allClasses = await _classService.GetClasses(SortingParam.Name);
+
+        var journalViewModel = new JournalViewModel
+        {
+            Classes = allClasses
+        };
+
+        return View(journalViewModel);
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> Journal(JournalViewModel model)
+    {
+        var selectedClass = await _classService.GetClassById(model.SelectedClassId);
+        var allClasses = await _classService.GetClasses(SortingParam.Name);
+        var students = selectedClass.Students.ToList();
+        var subjects = await _subjectService.GetSubjects();
+
+        var reviewsResult = await _classService.GetGradesForClass(model.SelectedClassId);
+
+        if (reviewsResult.IsSuccessful)
+        {
+            var journalViewModel = new JournalViewModel
+            {
+                Students = students,
+                Subjects = subjects,
+                Reviews = reviewsResult.Data,
+                Classes = allClasses
+            };
+
+            return View(journalViewModel);
+        }
+        
+        return View(model);
     }
 }

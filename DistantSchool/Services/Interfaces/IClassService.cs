@@ -10,4 +10,5 @@ public interface IClassService
     Task<Result<bool>> DeleteClass(int classId);
     Task<List<Class>> GetClasses(SortingParam sortOrder);
     Task<Class> GetClassById(int classId);
+    Task<Result<List<Review>>> GetGradesForClass(int classId);
 }

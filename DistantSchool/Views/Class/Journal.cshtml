@@ -1,0 +1,48 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model DistantSchool.ViewModels.JournalViewModel
+
+<h2>Journal</h2>
+
+<form method="post" asp-action="Journal">
+    <input type="hidden" asp-for="Classes" />
+    
+    <div class="form-group">
+        <label for="selectedClass">Select Class:</label>
+        <select class="form-control" id="selectedClass" asp-for="SelectedClassId">
+            @foreach (var schoolClass in Model.Classes)
+            {
+                <option value="@schoolClass.Id">@schoolClass.Name</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Generate Journal</button>
+</form>
+
+@if (Model.Reviews != null && Model.Reviews.Any())
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Student</th>
+            @foreach (var subject in Model.Subjects)
+            {
+                <th>@subject.Name</th>
+            }
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var student in Model.Students)
+        {
+            <tr>
+                <td>@student.FirstName @student.LastName</td>
+                @foreach (var subject in Model.Subjects)
+                {
+                    var review = Model.Reviews.FirstOrDefault(r => r.Student.StudentID == student.StudentID && r.Subject.Id == subject.Id);
+                    <td>@(review != null ? review.AverageGrade.ToString("F2") : "-")</td>
+                }
+            </tr>
+        }
+        </tbody>
+    </table>
+}

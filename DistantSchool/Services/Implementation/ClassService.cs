@@ -74,6 +74,41 @@ public class ClassService : IClassService
 
         return classById;
     }
+
+    public async Task<Result<List<Review>>> GetGradesForClass(int classId)
+    {
+        var schoolClass = await _repository.GetById(classId);
+        
+        if (schoolClass == null)
+        {
+            return new Result<List<Review>>(false, $"{nameof(schoolClass)} not found");
+        }
+
+        var reviews = new List<Review>();
+        
+        var students = schoolClass.Students;
+        
+        foreach (var student in students)
+        {
+            var grades = student.Grades.GroupBy(grade => grade.Assignment.Lesson.TeacherClassSubject.Subject);
+
+            foreach (var gradeGroup in grades)
+            {
+                var averageGrade = gradeGroup.Average(grade => grade.Value);
+
+                var review = new Review
+                {
+                    Student = student,
+                    AverageGrade = averageGrade,
+                    Subject = gradeGroup.Key
+                };
+
+                reviews.Add(review);
+            }
+        }
+        
+        return new Result<List<Review>>(true, reviews);
+    }
     
     private Expression<Func<IQueryable<Class>, IOrderedQueryable<Class>>> GetOrderByExpression(SortingParam sortBy)
     {
