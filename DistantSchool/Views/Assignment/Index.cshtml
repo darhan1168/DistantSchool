@@ -2,6 +2,7 @@
 
 <div class="container mt-5">
     <h2>Assignments</h2>
+    <h4>Completed Assignments: @Model.Count(a => a.Deadline < DateTime.Now)</h4>
     <form class="form-inline mb-3">
         <div class="form-group mr-2">
             <label for="searchQuery">Search by Name:</label>
