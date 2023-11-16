@@ -40,8 +40,7 @@ public class StudentService : IStudentService
         {
             return new Result<bool>(false, $"{nameof(student)} or {nameof(schoolClass)} not found");
         }
-
-        //student.Class = schoolClass;
+        
         student.ClassID = schoolClass.Id;
         
         var updatingResult = await _repository.Update(student);
@@ -72,6 +71,24 @@ public class StudentService : IStudentService
         }
 
         return students;
+    }
+
+    public async Task<Result<bool>> UpdateAverageRate(int studentId)
+    {
+        var student = await _repository.GetById(studentId);
+        
+        if (student == null)
+        {
+            return new Result<bool>(false, $"{nameof(student)} not found");
+        }
+
+        var averageGrade = (int)Math.Round(student.Grades.Average(g => g.Value));
+
+        student.GradeLevel = averageGrade;
+
+        var updatingResult = await UpdateStudent(student);
+        
+        return !updatingResult.IsSuccessful ? new Result<bool>(false, updatingResult.Message) : new Result<bool>(true);
     }
 
     public async Task<List<Student>> GetStudentsWithoutClass()

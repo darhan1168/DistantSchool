@@ -33,6 +33,18 @@ public class ProfileController : Controller
             return RedirectToAction("Login", "Account");
         }
 
+        if (user.Student != null)
+        {
+            var result = await _studentService.UpdateAverageRate(user.Student.StudentID);
+                
+            if (!result.IsSuccessful)
+            {
+                TempData["ErrorMessage"] = result.Message;
+                
+                return View();
+            }
+        }
+
         var profileViewModel = GetBaseProfileViewModel(user);
 
         return View(profileViewModel);
