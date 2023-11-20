@@ -34,13 +34,14 @@ else
                                 <p><strong>Class:</strong> @student.Class.Name</p>   
                             }
                             <a href="@Url.Action("EditStudent", "Profile", new { id = student.StudentID })" class="btn btn-primary float-right">Edit</a>
-                            <a href="@Url.Action("GenerateGradesReport", "Report", new { id = student.StudentID })">Download Report</a>
+                            <a href="@Url.Action("GenerateGradesReport", "Report")">Download Report</a>
                         }
 
                         @if (Model is TeacherProfileViewModel teacher)
                         {
                             <p><strong>Teaching Years:</strong> @teacher.TeachingYears</p>
                             <a href="@Url.Action("EditTeacher", "Profile", new { id = teacher.TeacherID })" class="btn btn-primary float-right">Edit</a>
+                            <a href="@Url.Action("GenerateLessonsReport", "Report")">Download Report</a>
                         }
                     </div>
                 </div>

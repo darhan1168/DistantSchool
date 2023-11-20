@@ -31,8 +31,32 @@ public class ReportController : Controller
 
         var pdfContent = result.Data;
         var contentType = "application/pdf";
-        var studentName = "Student_" + User.Identity.Name;
+        var studentName = "Student_" + username;
         var fileName = $"{studentName}.pdf";
+
+        Response.Headers.Add("Content-Disposition", $"attachment; filename={fileName}");
+
+        return File(pdfContent, contentType, fileName);
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> GenerateLessonsReport()
+    {
+        var username = User.Identity.Name;
+
+        var user = await _userService.GetUserByUsername(username);
+
+        if (user == null)
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        var result = await _reportService.GenerateLessonsReportAsync(user.Teacher.TeacherID);
+
+        var pdfContent = result.Data;
+        var contentType = "application/pdf";
+        var teacherName = "Teacher_" + username;
+        var fileName = $"{teacherName}.pdf";
 
         Response.Headers.Add("Content-Disposition", $"attachment; filename={fileName}");
 
