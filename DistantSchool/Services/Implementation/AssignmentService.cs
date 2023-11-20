@@ -40,6 +40,22 @@ public class AssignmentService : IAssignmentService
         return !updatingResult.IsSuccessful ? new Result<bool>(false, updatingResult.Message) : new Result<bool>(true);
     }
 
+    public async Task UpdateProgressForAssignments(List<Assignment> assignments)
+    {
+        if (assignments.Any())
+        {
+            foreach (var assignment in assignments)
+            {
+                if (assignment.Deadline < DateTime.Now)
+                {
+                    assignment.Status = AssignmentStatus.Completed;
+
+                    await UpdateAssignment(assignment);
+                }
+            }
+        }
+    }
+
     public async Task<Result<bool>> DeleteAssignment(int assignmentId)
     {
         var assignment = await _repository.GetById(assignmentId);

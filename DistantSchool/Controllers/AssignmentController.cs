@@ -31,6 +31,8 @@ public class AssignmentController : Controller
 
         var assignments = await _assignmentService.GetAssignmentsByUser(user, subjectName);
 
+        await _assignmentService.UpdateProgressForAssignments(assignments);
+
         return View(assignments);
     }
 
@@ -74,5 +76,31 @@ public class AssignmentController : Controller
         }
 
         return View(assignment); 
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    { 
+        var assignment = await _assignmentService.GetAssignmentById(id);
+        
+        return View(assignment);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(Assignment updatedAssignment)
+    {
+        if (ModelState.IsValid)
+        {
+            var updatingResult = await _assignmentService.UpdateAssignment(updatedAssignment);
+        
+            if (!updatingResult.IsSuccessful)
+            {
+                TempData["ErrorMessage"] = updatingResult.Message;
+            }
+            
+            return RedirectToAction("Details", new { id = updatedAssignment.AssignmentId });
+        }
+
+        return View(updatedAssignment);
     }
 }
