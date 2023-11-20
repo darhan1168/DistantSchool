@@ -17,7 +17,7 @@ public class ReportService : IReportService
     
     public async Task<Result<byte[]>> GenerateGradesReportAsync(int studentId)
     {
-        List<string> tableHeaders = new List<string> { "Date", "Grade" };
+        List<string> tableHeaders = new List<string> { "Date", "Grade", "Subject" };
         List<List<string>> tableData = new List<List<string>>();
         
         var student = await _studentService.GetStudentById(studentId);
@@ -29,7 +29,8 @@ public class ReportService : IReportService
             tableData.Add(new List<string>
             {
                 grade.Date.ToString("MM/dd/yyyy hh:mm tt"),
-                !string.IsNullOrWhiteSpace(grade.Value.ToString()) ? grade.Value.ToString() : "N/A"
+                !string.IsNullOrWhiteSpace(grade.Value.ToString()) ? grade.Value.ToString() : "N/A",
+                grade.Assignment.Lesson.TeacherClassSubject.Subject.Name
             });
         }
 

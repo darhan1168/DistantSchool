@@ -2,11 +2,6 @@
 
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <a href="@Url.Action("EditValuesOfClass", "Class", new { id = Model.Id })" class="btn btn-primary btn-sm">Edit values of class</a>
-          <form asp-action="DeleteClass" asp-route-id="@Model.Id" method="post" onsubmit="return confirmDelete('@Model.Name');">
-              <button type="submit" class="btn btn-danger btn-sm">Delete class</button>
-          </form>
-
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
@@ -17,6 +12,10 @@
                             <h3>Class Information</h3>
                             <p><strong>Class Name:</strong> @Model.Name</p>
                             <p><strong>Academic Year:</strong> @Model.AcademicYear</p>
+                                    <a href="@Url.Action("EditValuesOfClass", "Class", new { id = Model.Id })" class="btn btn-primary btn-sm">Edit values of class</a>
+                            <form asp-action="DeleteClass" asp-route-id="@Model.Id" method="post" onsubmit="return confirmDelete('@Model.Name');">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete class</button>
+                            </form>
                         </div>
 
                         <div class="col-md-6">

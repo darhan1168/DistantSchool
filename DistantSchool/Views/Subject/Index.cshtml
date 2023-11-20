@@ -1,7 +1,14 @@
 @model List<Subject>
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
 <div class="container mt-5">
     <div class="row">
+        <form asp-action="AddSubject">
+            <button type="submit" class="btn btn-primary btn-sm">Add subject</button>
+        </form>
         @foreach (var subject in Model)
         {
             <div class="col-md-4 mb-4">
@@ -9,9 +16,18 @@
                     <div class="card-body">
                         <h5 class="card-title" style="text-align: center">@subject.Name</h5>
                         <p class="card-text">@subject.Description</p>
+                        <form asp-action="DeleteSubject" asp-route-id="@subject.Id" method="post" onsubmit="return confirmDelete('@subject.Name');">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete subject</button>
+                        </form>
+                            <a href="@Url.Action("EditValuesOfSubject", "Subject", new { id = @subject.Id})" class="btn btn-primary btn-sm">Update subject</a>
                     </div>
                 </div>
             </div>
         }
     </div>
 </div>
+<script>
+    function confirmDelete(subjectName) {
+        return confirm('Are you sure you want to delete the subject "' + subjectName + '"?');
+    }
+</script>
