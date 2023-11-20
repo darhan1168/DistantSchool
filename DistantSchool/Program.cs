@@ -32,6 +32,7 @@ builder.Services.AddScoped<ILessonService, LessonService>();
 builder.Services.AddScoped<ITeachersClassesSubjectsService, TeachersClassesSubjectsService>();
 builder.Services.AddScoped<IAssignmentService, AssignmentService>();
 builder.Services.AddScoped<IGradeService, GradeService>();
+builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
