@@ -22,6 +22,11 @@ public class ClassService : IClassService
         {
             return new Result<bool>(false, $"{nameof(schoolClass)} not found");
         }
+
+        if (!await IsValidClass(schoolClass))
+        {
+            return new Result<bool>(false, $"{nameof(schoolClass)} is not valid");
+        }
         
         var addingResult = await _repository.Add(schoolClass);
         
@@ -33,6 +38,11 @@ public class ClassService : IClassService
         if (schoolClass == null)
         {
             return new Result<bool>(false, $"{nameof(schoolClass)} not found");
+        }
+        
+        if (await IsValidClass(schoolClass))
+        {
+            return new Result<bool>(false, $"{nameof(schoolClass)} is not valid");
         }
         
         var updatingResult = await _repository.Update(schoolClass);
@@ -109,7 +119,12 @@ public class ClassService : IClassService
         
         return new Result<List<Review>>(true, reviews);
     }
-    
+
+    private async Task<bool> IsValidClass(Class schoolClass)
+    {
+        return (await _repository.Get(c => c.Name == schoolClass.Name)).Any();
+    }
+
     private Expression<Func<IQueryable<Class>, IOrderedQueryable<Class>>> GetOrderByExpression(SortingParam sortBy)
     {
         Expression<Func<IQueryable<Class>, IOrderedQueryable<Class>>> query;

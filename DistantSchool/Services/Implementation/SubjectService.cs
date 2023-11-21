@@ -21,6 +21,11 @@ public class SubjectService : ISubjectService
             return new Result<bool>(false, $"{nameof(subject)} not found");
         }
         
+        if (await IsValidSubject(subject))
+        {
+            return new Result<bool>(false, $"{nameof(subject)} is not valid");
+        }
+        
         var addingResult = await _repository.Add(subject);
         
         return !addingResult.IsSuccessful ? new Result<bool>(false, addingResult.Message) : new Result<bool>(true);
@@ -31,6 +36,11 @@ public class SubjectService : ISubjectService
         if (subject == null)
         {
             return new Result<bool>(false, $"{nameof(subject)} not found");
+        }
+        
+        if (await IsValidSubject(subject))
+        {
+            return new Result<bool>(false, $"{nameof(subject)} is not valid");
         }
         
         var updatingResult = await _repository.Update(subject);
@@ -69,5 +79,10 @@ public class SubjectService : ISubjectService
         var subjects = await _repository.Get();
 
         return subjects;
+    }
+    
+    private async Task<bool> IsValidSubject(Subject subject)
+    {
+        return (await _repository.Get(s => s.Name == subject.Name)).Any();
     }
 }
