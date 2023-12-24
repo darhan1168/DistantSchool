@@ -1,32 +1,44 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model DistantSchool.ViewModels.RegisterViewModel
 
-<h2>Register</h2>
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
-}
-<form asp-action="Register" method="post">
-    <div class="form-group">
-        <label asp-for="@Model.Username"></label>
-        <input asp-for="@Model.Username" class="form-control" />
-        <span asp-validation-for="@Model.Username" class="text-danger"></span>
-    </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Register</h2>
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+                    }
+                    <form asp-action="Register" method="post">
+                        <div class="form-group">
+                            <label asp-for="@Model.Username" class="font-weight-bold">Username</label>
+                            <input asp-for="@Model.Username" class="form-control" />
+                            <span asp-validation-for="@Model.Username" class="text-danger"></span>
+                        </div>
 
-    <div class="form-group">
-        <label asp-for="@Model.Password"></label>
-        <input asp-for="@Model.Password" type="password" class="form-control" />
-        <span asp-validation-for="@Model.Password" class="text-danger"></span>
-    </div>
-    
-    <div class="form-group">
-        <label asp-for="@Model.UserType"></label>
-        <select asp-for="@Model.UserType" class="form-control">
-            <option value="Student">Student</option>
-            <option value="Teacher">Teacher</option>
-        </select>
-        <span asp-validation-for="@Model.UserType" class="text-danger"></span>
-    </div>    
+                        <div class="form-group">
+                            <label asp-for="@Model.Password" class="font-weight-bold">Password</label>
+                            <input asp-for="@Model.Password" type="password" class="form-control" />
+                            <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="@Model.UserType" class="font-weight-bold">User Type</label>
+                            <select asp-for="@Model.UserType" class="form-control">
+                                <option value="Student">Student</option>
+                                <option value="Teacher">Teacher</option>
+                            </select>
+                            <span asp-validation-for="@Model.UserType" class="text-danger"></span>
+                        </div>    
 
-    <button type="submit" class="btn btn-primary">Register</button>
-</form>
+                        <div style="margin-top: 10px;">
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

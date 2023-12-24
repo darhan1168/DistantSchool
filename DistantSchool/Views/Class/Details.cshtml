@@ -12,9 +12,9 @@
                             <h3>Class Information</h3>
                             <p><strong>Class Name:</strong> @Model.Name</p>
                             <p><strong>Academic Year:</strong> @Model.AcademicYear</p>
-                                    <a href="@Url.Action("EditValuesOfClass", "Class", new { id = Model.Id })" class="btn btn-primary btn-sm">Edit values of class</a>
+                                    <a href="@Url.Action("EditValuesOfClass", "Class", new { id = Model.Id })" class="btn btn-primary btn-sm" style="margin-top: 10px;">Edit values of class</a>
                             <form asp-action="DeleteClass" asp-route-id="@Model.Id" method="post" onsubmit="return confirmDelete('@Model.Name');">
-                                <button type="submit" class="btn btn-danger btn-sm">Delete class</button>
+                                <button type="submit" class="btn btn-danger btn-sm" style="margin-top: 10px;">Delete class</button>
                             </form>
                         </div>
 
@@ -23,10 +23,8 @@
                             <ul class="list-group">
                                 @foreach (var student in Model.Students)
                                 {
-                                    <li class="list-group-item">@student.FirstName @student.LastName</li>
-                                    <div class="float-right">
-                                        <a href="@Url.Action("EditClass", "Class", new { studentId = student.StudentID })" class="btn btn-primary btn-sm">Edit class</a>
-                                    </div>                                
+                                    <li class="list-group-item" style="margin-top: 10px;">@student.FirstName @student.LastName</li>
+                                    <a href="@Url.Action("EditClass", "Class", new { studentId = student.StudentID })" class="btn btn-primary btn-sm" >Edit class</a>
                                 }
                             </ul>
                         </div>

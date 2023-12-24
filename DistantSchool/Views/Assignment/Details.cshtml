@@ -22,7 +22,7 @@
                 <ul>
                     @foreach (var student in Model.Lesson.TeacherClassSubject.Class.Students)
                     {
-                        <li>
+                        <li style="margin-top: 10px;">
                             @student.FirstName @student.LastName @student.Patronymic
                             @if (student.Grades.Any(g => g.Assignment == Model))
                             {
@@ -30,7 +30,7 @@
                             }
                             else
                             {
-                                <a href="@Url.Action("RateGrade", "Grade", new { studentId = student.StudentID, lessonId = Model.LessonId, assignmentId = Model.AssignmentId})" class="btn btn-primary btn-sm">Rate Grade</a>
+                                <a href="@Url.Action("RateGrade", "Grade", new { studentId = student.StudentID, lessonId = Model.LessonId, assignmentId = Model.AssignmentId})" class="btn btn-primary btn-sm" >Rate Grade</a>
                             }
                         </li>
                     }

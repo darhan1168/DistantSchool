@@ -83,7 +83,7 @@ public class AccountController : Controller
             
             await Authenticate(model.Username);
             
-            return RedirectToAction("Privacy", "Home");
+            return RedirectToAction("Index", "Profile");
         }
         
         TempData["ErrorMessage"] = "Model is not valid";
